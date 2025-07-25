@@ -16,4 +16,5 @@ catalog = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Фу
                                                                       ,callback_data='cap')]])
 
 get_number = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="Отправить номер",
-                                                           request_contact=True)]])
+                                                           request_contact=True)]],
+                                 resize_keyboard=True)
