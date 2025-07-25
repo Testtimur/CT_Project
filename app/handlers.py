@@ -2,7 +2,7 @@ from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, callback_query, CallbackQuery
 from aiogram import F, Router
-from click import clear
+
 
 import app.keboards as kb
 from app.auth import Register
@@ -11,8 +11,8 @@ router = Router()
 
 @router.message(CommandStart())
 async def cmd_start(message: Message):
-    await message.answer("Привет", reply_markup=kb.main)
-    await message.reply("Как дела?")
+    await message.answer("Добро пожаловать в магазин индийского чая PAPAS MASALA!", reply_markup=kb.main)
+
 
 @router.message(Command('help'))
 async def cmd_help(message: Message):
