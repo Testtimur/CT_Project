@@ -1,5 +1,6 @@
 from aiogram.types import (ReplyKeyboardMarkup,KeyboardButton,
                            InlineKeyboardButton,InlineKeyboardMarkup)
+from app.database.requests import get_categories
 
 main = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="Каталог")],
                            [KeyboardButton(text="Корзина")],
@@ -8,12 +9,9 @@ main = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="Каталог")],
                            resize_keyboard=True,
                            input_field_placeholder="Выберете пункт меню")
 
-catalog = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text='Футболки'
-                                                                      ,callback_data='t-shirt')],
-                                                [InlineKeyboardButton(text='Кроссовки'
-                                                                      ,callback_data='sneakers')],
-                                                [InlineKeyboardButton(text='Кепки'
-                                                                      ,callback_data='cap')]])
+async def category():
+    all_categories = await get_categories()
+
 
 get_number = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="Отправить номер",
                                                            request_contact=True)]],
