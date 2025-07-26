@@ -1,3 +1,5 @@
+from unicodedata import category
+
 from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, callback_query, CallbackQuery
@@ -20,12 +22,14 @@ async def cmd_help(message: Message):
 
 @router.message(F.text == 'Каталог')
 async def catalog(message: Message):
-    await message.answer('Выбирите категорию товара', reply_markup=kb.catalog)
+    await message.answer('Выберете категорию товара', reply_markup=await kb.categories())
 
-@router.callback_query(F.data == 't-shirt')
-async def t_shirt(callback: CallbackQuery):
-    await callback.answer('Вы выбрали категорию',show_alert=True)
-    await callback.answer('Вы выбрали категорию футболок')
+@router.callback_query(F.data.startswitch('category_'))
+async def category(callback: CallbackQuery):
+    await callback.answer('Вы выбрали категорию')
+    await callback.message.answer('Выберете товар по категории',
+                                  reply_markup=await kb.items(callback.data.split('_')[1]))
+
 
 @router.message(Command('register'))
 async def register(message: Message, state: FSMContext):
