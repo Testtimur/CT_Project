@@ -24,7 +24,7 @@ async def cmd_help(message: Message):
 async def catalog(message: Message):
     await message.answer('Выберете категорию товара', reply_markup=await kb.categories())
 
-@router.callback_query(F.data.startswitch('category_'))
+@router.callback_query(F.data.startswith('category_'))
 async def category(callback: CallbackQuery):
     await callback.answer('Вы выбрали категорию')
     await callback.message.answer('Выберете товар по категории',
